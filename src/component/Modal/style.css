@@ -1,0 +1,67 @@
+.modal-bottom {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1051;
+  transition: all 0.3s ease-in;
+  -webkit-transition: all 0.3s ease-in;
+  -moz-transition: all 0.3s ease-in;
+  -o-transition: all 0.3s ease-in;
+  display: block;
+  background-color: #ffffff;
+  border-top-left-radius: 10%;
+  border-top-right-radius: 10%;
+}
+.modal-bottom .close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0.3rem;
+  top: 1rem;
+}
+.modal-bottom.open {
+  animation: modal 0.3s;
+}
+.modal-bottom .body-modal {
+  height: 100%;
+  background: #ffffff;
+  padding: 1rem;
+  overflow-y: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  min-height: 600px;
+}
+.modal-bottom .modal-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1050;
+}
+.modal-back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+}
+.hidden {
+  display: none;
+}
+
+@keyframes modal {
+  from {
+    display: none;
+    transform: translateY(705%);
+  }
+  to {
+    display: block;
+    transform: translate(0);
+  }
+}

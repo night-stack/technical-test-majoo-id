@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #424749;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.w-full {
+  width: 100%;
+}
+.w-50 {
+  width: 50%;
+}
+.flex {
+  display: flex;
+}
+button {
+  border: none;
+  outline: none;
+}

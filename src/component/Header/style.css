@@ -1,0 +1,51 @@
+.date {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  align-items: center;
+  justify-items: center;
+  background-color: transparent;
+}
+.date .active {
+  background-color: #424749;
+  color: #fff;
+}
+.weekend {
+  color: #f1f1f2;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  align-items: center;
+  justify-items: center;
+  background-color: transparent;
+}
+.disabled {
+  color: #6e7679;
+}
+input[type="text"] {
+  padding: 1px 2px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+.search-form {
+  width: 100%;
+  display: flex;
+  padding: 16px;
+  margin-top: 16px;
+  align-items: center;
+  border: solid 2px #f1f1f2;
+}
+.modal-wrapper {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  max-width: 300px;
+}
