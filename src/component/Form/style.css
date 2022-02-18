@@ -1,0 +1,75 @@
+.form-group {
+    width: 100%;
+}
+.form-group input[type="text"] {
+    width: 90%;
+    padding: .6rem 1rem;
+    border: 2px solid #f1f1f2;
+    background-color: transparent;
+    outline: none;
+}
+.form-group input[type="text"] {
+    width: 90%;
+    padding: .6rem 1rem;
+    border: 2px solid #f1f1f2;
+    background-color: transparent;
+    outline: none;
+}
+.add-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.submit-btn {
+    padding: 10px 20px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #3b82f6;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.close-btn {
+    padding: 10px 20px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #ef4444;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.edit-btn {
+    padding: 10px 20px;
+    font-size: 12px;
+    color: #333;
+    background-color: #E1F0C7;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.modal-wrapper label {
+    width: 50%;
+}
+.modal-wrapper {
+    padding-top: 2rem;
+    margin-bottom: 1rem;
+}
+.modal-content-custom {
+    padding-right: 5rem;
+    padding-left: 5rem;
+}
+.detail-text {
+    color: #333;
+    font-size: large;
+    font-weight: 600;
+}

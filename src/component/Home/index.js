@@ -1,166 +1,167 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Header";
-import Cart from "../Cart";
-import { DateTimeHelper, NumberHelper } from "../../utils";
-import Rating from "react-star-ratings";
+import { HttpHelper } from "../../utils";
 import { Icon } from "react-materialize";
+import ModalForm from "../Form/modalForm";
+import AddForm from "../Form";
+import moment from "moment";
 import "./style.css";
 
-const datas = [
-  {
-    id: 1,
-    image:
-      "https://assets.kulina.id/kulina-assets/web/images/menus-new-user/menu_40_03.jpg",
-    name: "Penne - Pasta Chicken Presto",
-    catering: "Kulina",
-    menu: "Uptown Lunch",
-    price: 30000,
-    rate: 4.5,
-  },
-  {
-    id: 2,
-    image:
-      "https://assets.kulina.id/kulina-assets/web/images/menus-new-user/menu_40_04.jpg",
-    name: "Spaghetti Bolognese",
-    catering: "Kulina",
-    menu: "Uptown Lunch",
-    price: 35000,
-    rate: 4.7,
-  },
-  {
-    id: 3,
-    image:
-      "https://assets.kulina.id/kulina-assets/web/images/menus-new-user/menu_30_04.jpg",
-    name: "Chicken Bolognese Penne sauteed",
-    catering: "Kulina",
-    menu: "Uptown Lunch",
-    price: 30000,
-    rate: 4.5,
-  },
-  {
-    id: 4,
-    image:
-      "https://assets.kulina.id/kulina-assets/web/images/menus-new-user/menu_30_01.jpg",
-    name: "Dori Asam Manis dan Capcay Goreng",
-    catering: "Kulina",
-    menu: "Uptown Lunch",
-    price: 28000,
-    rate: 5,
-  },
-];
-
 const Home = () => {
-  const [lunch, setLunch] = useState(false);
-  const [cart, setCart] = useState([]);
-  const [calender, setCalender] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [data, setData] = useState([]);
+  const [oneData, setOneData] = useState(null);
+  const [addMode, setAddMode] = useState(false);
+  const [detailMode, setDetailMode] = useState(false);
 
   useEffect(() => {
-    const currentDate = new Date().getDate();
-    const weeks = DateTimeHelper.getWeeks();
-    const getSelected = weeks.find((val) => {
-      return val.date === currentDate;
-    });
-    setCalender(weeks);
-    setSelectedDate(getSelected);
+    const fetchData = async () => {
+      const response = await HttpHelper.getData(
+        `https://virtserver.swaggerhub.com/hanabyan/todo/1.0.0/to-do-list`,
+        {}
+      );
+      if (response) {
+        setData(response);
+      }
+    };
+    fetchData();
   }, []);
 
-  const selectDate = (val) => {
-    setSelectedDate(val);
+  const addData = (formData) => {
+    const currentId = data[data.length - 1].id;
+    const newData = {
+      id: currentId + 1,
+      title: formData.title,
+      description: formData.description,
+      status: formData.status,
+      createdAt: moment(formData.createdAt).format("yyyy-MM-DD, HH:mm"),
+    };
+    data.push(newData);
   };
 
-  const addToCart = (val) => {
-    const currentCart = [...cart];
-    if (currentCart.length > 0) {
-      setCart([...currentCart, val]);
-    } else {
-      setCart([{ ...val }]);
+  const editData = (formData) => {
+    const arr = [...data];
+    const index = arr.findIndex((val) => val.id === formData.id);
+    arr[index].title = formData.title;
+    arr[index].description = formData.description;
+    arr[index].status = Number(formData.status);
+    setData(arr);
+    setOneData(null);
+  };
+
+  const deleteData = (formData) => {
+    const arr = [...data];
+    const index = arr.findIndex((val) => val.id === formData.id);
+    if (index) {
+      arr.splice(index, 1);
+      setData(arr);
     }
+    setOneData(null);
   };
 
-  const deleteCart = () => {
-    setCart([]);
+  const onDetail = (val) => {
+    setOneData(val);
+    setDetailMode(!detailMode);
   };
 
   return (
-    <div className="mobile-layout">
-      <Header
-        calender={calender}
-        selectDate={selectDate}
-        selectedDate={selectedDate}
-      />
-      {cart?.length > 0 && <Cart items={cart} deleteCart={deleteCart} />}
+    <div>
+      <Header />
       <div className="mobile-wrapper" style={{ paddingBottom: 100 }}>
-        <div className="flex w-full" style={{ paddingTop: 150 }}>
-          <button
-            className={!lunch ? "type-lunch active" : "type-lunch"}
-            onClick={() => setLunch(false)}
-          >
-            Lunch
-          </button>
-
-          <button
-            className={lunch ? "type-dinner active" : "type-dinner"}
-            onClick={() => setLunch(true)}
-          >
-            Dinner
-          </button>
-        </div>
-
-        <div className="menu">
-          <div className="date-title">
-            {`${selectedDate?.day}, ${selectedDate?.date} ${selectedDate?.month} ${selectedDate?.year}`}
+        <div className="wrapper">
+          <div className="title">
+            List Data
+            <button
+              type="button"
+              className="add-btn"
+              onClick={() => setAddMode(!addMode)}
+            >
+              <Icon style={{ marginRight: 6 }}>add</Icon>
+              Tambah Data
+            </button>
           </div>
-          {datas?.length > 0 &&
-            datas?.map((data) => (
-              <div key={data.id} className="card">
-                <div
-                  className="card-header"
-                  style={{ backgroundImage: `url(${data.image})` }}
-                ></div>
-                <div className="card-body">
-                  <div className="flex" style={{ alignItems: "center" }}>
-                    <span
-                      className="subtitle"
-                      style={{
-                        display: "inline-block",
-                        marginRight: 6,
-                      }}
-                    >
-                      {data.rate}
-                    </span>
-                    <Rating
-                      rating={data.rate}
-                      starRatedColor="#f9423a"
-                      starDimension="16px"
-                      starSpacing="1px"
-                    />
-                  </div>
-                  <div className="wrapper">
-                    <span className="title">{data.name}</span>
-                    <div className="menu-desc">
-                      <span className="catering-desc">{`by ${data.catering}`}</span>
-                      {data.menu}
-                    </div>
-                  </div>
-                </div>
-                <div className="card-footer">
-                  <span className="date-title">
-                    {`Rp ${NumberHelper.getThousandFormat(data.price)}`}
-                  </span>
-                  <button
-                    type="button"
-                    className="cart-button"
-                    onClick={() => addToCart(data)}
-                  >
-                    Add
-                    <Icon style={{ fontSize: 16 }}>add</Icon>
-                  </button>
-                </div>
-              </div>
-            ))}
+          {addMode && (
+            <AddForm addData={addData} onCancel={() => setAddMode(!addMode)} />
+          )}
+
+          <div style={{ display: "flex", width: "100%" }}>
+            <table style={{ width: "45%", marginRight: "10%" }}>
+              <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Cretaed At</th>
+              </tr>
+
+              {data?.length > 0 &&
+                data
+                  ?.sort(
+                    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+                  )
+                  // eslint-disable-next-line array-callback-return
+                  .map((val) => {
+                    if (val.status === 0) {
+                      return (
+                        <tr
+                          key={val.id}
+                          style={{ cursor: "pointer" }}
+                          onClick={() => onDetail(val)}
+                        >
+                          <td>{val.id}</td>
+                          <td>{val.title}</td>
+                          <td>{val.description}</td>
+                          <td>{val.status}</td>
+                          <td>{val.createdAt}</td>
+                        </tr>
+                      );
+                    }
+                  })}
+            </table>
+
+            <table style={{ width: "45%" }}>
+              <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Cretaed At</th>
+              </tr>
+
+              {data?.length > 0 &&
+                data
+                  ?.sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                  )
+                  // eslint-disable-next-line array-callback-return
+                  .map((val) => {
+                    if (val.status === 1) {
+                      return (
+                        <tr
+                          key={val.id}
+                          style={{ cursor: "pointer" }}
+                          onClick={() => onDetail(val)}
+                        >
+                          <td>{val.id}</td>
+                          <td>{val.title}</td>
+                          <td>{val.description}</td>
+                          <td>{val.status}</td>
+                          <td>{val.createdAt}</td>
+                        </tr>
+                      );
+                    }
+                  })}
+            </table>
+          </div>
         </div>
       </div>
+
+      <ModalForm
+        data={oneData}
+        open={detailMode}
+        handleModal={setDetailMode}
+        editData={editData}
+        deleteData={deleteData}
+      />
     </div>
   );
 };

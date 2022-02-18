@@ -1,60 +1,13 @@
-.address {
-  display: flex;
-  flex-direction: column;
-  text-transform: uppercase;
-  font-size: 11px;
-  color: #6e7679;
-  font-weight: 600;
-}
-.addressButton {
-  color: #424749;
-  padding: 0;
-  font-size: 20px;
-  font-weight: 700;
-  display: flex;
-  background-color: transparent;
-  align-items: center;
-}
-.dateItem {
-  display: flex;
-  flex-direction: column;
-  font-size: 16px;
-  font-weight: 700;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-}
-.dateCode {
-  font-size: 10px;
-  font-weight: 500;
-}
-.carouselWrapper {
-  margin-top: 16px;
-  border-bottom: solid 1px #f1f1f2;
-  height: 100%;
-  padding-bottom: 8px;
-  margin-bottom: 16px;
-  background: #ffffff;
-}
 .headerLayout {
-  position: fixed;
-  top: 0;
-  left: auto;
-  right: auto;
-  height: 65px;
-  display: inline-block;
+  position: relative;
   padding: 1rem;
-  z-index: 2;
-  background: #ffffff;
-  margin-bottom: 1rem;
+  background: #E1F0C7;
 }
-.list {
-  width: 100%;
-  padding-top: 1rem;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  margin-top: 1rem;
+.link {
+  display: inline-block;
+  text-decoration: none;
   display: flex;
-  align-items: center;
-  margin-bottom: 16;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333;
 }
