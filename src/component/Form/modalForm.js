@@ -149,9 +149,11 @@ const ModalForm = ({ data, open, editData, deleteData, handleModal }) => {
               >
                 Ubah
               </button>
-              <button type="button" className="close-btn" onClick={doDelete}>
-                Hapus
-              </button>
+              {formData.status !== 1 && (
+                <button type="button" className="close-btn" onClick={doDelete}>
+                  Hapus
+                </button>
+              )}
             </div>
           )}
 
